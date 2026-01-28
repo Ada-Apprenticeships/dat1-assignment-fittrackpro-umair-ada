@@ -21,7 +21,7 @@ CREATE TABLE locations (
     location_id INTEGER PRIMARY KEY NOT NULL,
     name VARCHAR,
     address VARCHAR,
-    phone_number VARCHAR CHECK (length(replace(phone_number, ' ', '')) = 11),
+    phone_number VARCHAR CHECK (length(replace(phone_number, ' ', '')) >= 10),
     email VARCHAR CHECK (email LIKE '%_@_%._%'),
     opening_hours VARCHAR CHECK (opening_hours LIKE '__:__-__:__')
 );
@@ -32,11 +32,11 @@ CREATE TABLE members (
     first_name VARCHAR,
     last_name VARCHAR,
     email VARCHAR CHECK (email LIKE '%_@_%._%'),
-    phone_number VARCHAR CHECK (length(replace(phone_number, ' ', '')) = 11),
+    phone_number VARCHAR CHECK (length(replace(phone_number, ' ', '')) >= 10),
     date_of_birth DATE,
     join_date DATE,
     emergency_contact_name VARCHAR,
-    emergency_contact_phone VARCHAR CHECK (length(replace(emergency_contact_phone, ' ', '')) = 11)
+    emergency_contact_phone VARCHAR CHECK (length(replace(emergency_contact_phone, ' ', '')) >= 10)
 );
 
 -- Staff Table Creation
@@ -45,7 +45,7 @@ CREATE TABLE staff (
     first_name VARCHAR,
     last_name VARCHAR,
     email VARCHAR CHECK (email LIKE '%_@_%._%'),
-    phone_number VARCHAR CHECK (length(replace(phone_number, ' ', '')) = 11),
+    phone_number VARCHAR CHECK (length(replace(phone_number, ' ', '')) >= 10),
     position VARCHAR CHECK (position IN ('Trainer', 'Manager', 'Receptionist', 'Maintenance')),
     hire_date DATE,
     location_id INTEGER,
@@ -118,7 +118,7 @@ CREATE TABLE payments (
     member_id INTEGER,
     amount REAL,
     payment_date DATETIME,
-    payment_method VARCHAR CHECK (payment_method IN ('Credit Card', 'Bank Transfer', 'PayPal')),
+    payment_method VARCHAR CHECK (payment_method IN ('Credit Card', 'Bank Transfer', 'PayPal', 'Cash')),
     payment_type VARCHAR CHECK (payment_type IN ('Monthly membership fee', 'Day pass')),
     FOREIGN KEY (member_id) REFERENCES members(member_id)
 );
