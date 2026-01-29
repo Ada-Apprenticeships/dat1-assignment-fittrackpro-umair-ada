@@ -49,7 +49,7 @@ CREATE TABLE staff (
     position VARCHAR CHECK (position IN ('Trainer', 'Manager', 'Receptionist', 'Maintenance')),
     hire_date DATE,
     location_id INTEGER,
-    FOREIGN KEY (location_id) REFERENCES locations(location_id)
+    FOREIGN KEY (location_id) REFERENCES locations(location_id) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 -- Equipment Table Creation
@@ -61,7 +61,7 @@ CREATE TABLE equipment (
     last_maintenance_date DATE,
     next_maintenance_date DATE,
     location_id INTEGER,
-    FOREIGN KEY (location_id) REFERENCES locations(location_id)
+    FOREIGN KEY (location_id) REFERENCES locations(location_id) ON DELETE SET NULL ON UPDATE CASCADE
 );
 -- Classes Table Creation
 CREATE TABLE classes (
@@ -71,7 +71,7 @@ CREATE TABLE classes (
     capacity INTEGER,
     duration INTEGER,
     location_id INTEGER,
-    FOREIGN KEY (location_id) REFERENCES locations(location_id)
+    FOREIGN KEY (location_id) REFERENCES locations(location_id) ON DELETE SET NULL ON UPDATE CASCADE
 );
 -- Class Schedule Table Creation
 CREATE TABLE class_schedule (
@@ -80,8 +80,8 @@ CREATE TABLE class_schedule (
     staff_id INTEGER,
     start_time DATETIME,
     end_time DATETIME,
-    FOREIGN KEY (class_id) REFERENCES classes(class_id),
-    FOREIGN KEY (staff_id) REFERENCES staff(staff_id)
+    FOREIGN KEY (class_id) REFERENCES classes(class_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (staff_id) REFERENCES staff(staff_id) ON DELETE SET NULL ON UPDATE CASCADE
 );
 -- Memberships Table Creation
 CREATE TABLE memberships (
@@ -91,7 +91,7 @@ CREATE TABLE memberships (
     start_date DATE,
     end_date DATE,
     status VARCHAR CHECK (status IN ('Active', 'Inactive')),
-    FOREIGN KEY (member_id) REFERENCES members(member_id)
+    FOREIGN KEY (member_id) REFERENCES members(member_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 -- Attendance Table Creation
 CREATE TABLE attendance (
@@ -100,8 +100,8 @@ CREATE TABLE attendance (
     location_id INTEGER,
     check_in_time DATETIME,
     check_out_time DATETIME,
-    FOREIGN KEY (member_id) REFERENCES members(member_id),
-    FOREIGN KEY (location_id) REFERENCES locations(location_id)
+    FOREIGN KEY (member_id) REFERENCES members(member_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (location_id) REFERENCES locations(location_id) ON DELETE SET NULL ON UPDATE CASCADE
 );
 -- Class Attendance Table Creation
 CREATE TABLE class_attendance (
@@ -109,8 +109,8 @@ CREATE TABLE class_attendance (
     schedule_id INTEGER,
     member_id INTEGER,
     attendance_status VARCHAR CHECK (attendance_status IN ('Registered', 'Attended', 'Unattended')),
-    FOREIGN KEY (schedule_id) REFERENCES class_schedule(schedule_id),
-    FOREIGN KEY (member_id) REFERENCES members(member_id)
+    FOREIGN KEY (schedule_id) REFERENCES class_schedule(schedule_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (member_id) REFERENCES members(member_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 -- Payments Table Creation
 CREATE TABLE payments (
@@ -120,7 +120,7 @@ CREATE TABLE payments (
     payment_date DATETIME,
     payment_method VARCHAR CHECK (payment_method IN ('Credit Card', 'Bank Transfer', 'PayPal', 'Cash')),
     payment_type VARCHAR CHECK (payment_type IN ('Monthly membership fee', 'Day pass')),
-    FOREIGN KEY (member_id) REFERENCES members(member_id)
+    FOREIGN KEY (member_id) REFERENCES members(member_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 -- Personal Training Sessions Table Creation
 CREATE TABLE personal_training_sessions (
@@ -131,8 +131,8 @@ CREATE TABLE personal_training_sessions (
     start_time TIME,
     end_time TIME,
     notes VARCHAR,
-    FOREIGN KEY (member_id) REFERENCES members(member_id),
-    FOREIGN KEY (staff_id) REFERENCES staff(staff_id)
+    FOREIGN KEY (member_id) REFERENCES members(member_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (staff_id) REFERENCES staff(staff_id) ON DELETE SET NULL ON UPDATE CASCADE
 );
 -- Member Health Metrics Table Creation
 CREATE TABLE member_health_metrics (
@@ -143,7 +143,7 @@ CREATE TABLE member_health_metrics (
     body_fat_percentage REAL,
     muscle_mass REAL,
     bmi REAL,
-    FOREIGN KEY (member_id) REFERENCES members(member_id)
+    FOREIGN KEY (member_id) REFERENCES members(member_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 -- Equipment Maintenance Log Table Creation
 CREATE TABLE equipment_maintenance_log (
@@ -152,6 +152,6 @@ CREATE TABLE equipment_maintenance_log (
     maintenance_date DATE,
     description VARCHAR,
     staff_id INTEGER,
-    FOREIGN KEY (equipment_id) REFERENCES equipment(equipment_id),
-    FOREIGN KEY (staff_id) REFERENCES staff(staff_id)
+    FOREIGN KEY (equipment_id) REFERENCES equipment(equipment_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (staff_id) REFERENCES staff(staff_id) ON DELETE SET NULL ON UPDATE CASCADE
 );
