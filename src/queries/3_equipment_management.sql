@@ -18,6 +18,6 @@ GROUP BY type;
 -- 3.3 
 SELECT
     type AS equipment_type,
-    AVG(purchase_date) AS avg_age_days
+    ROUND(AVG(julianday('now') - julianday(purchase_date)), 1) AS avg_age_days
 FROM equipment
 GROUP BY type;
