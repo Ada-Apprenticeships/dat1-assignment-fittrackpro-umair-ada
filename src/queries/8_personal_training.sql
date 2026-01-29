@@ -2,4 +2,15 @@
 .mode column
 
 -- 8.1 
+SELECT
+    pts.session_id,
+    mem.first_name || ' ' || mem.last_name AS member_name,
+    pts.session_date,
+    pts.start_time,
+    pts.end_time
+FROM personal_training_sessions pts
+LEFT JOIN members mem
+ON pts.member_id = mem.member_id
+WHERE pts.staff_id = 2;
 
+-- Double check with DAN ^
