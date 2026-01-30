@@ -11,6 +11,6 @@ SELECT
 FROM personal_training_sessions pts
 LEFT JOIN members mem
 ON pts.member_id = mem.member_id
-WHERE pts.staff_id = 2;
-
--- Double check with DAN ^
+LEFT JOIN staff s
+ON pts.staff_id = s.staff_id
+WHERE s.first_name = 'Ivy' AND s.last_name = 'Irwin';
