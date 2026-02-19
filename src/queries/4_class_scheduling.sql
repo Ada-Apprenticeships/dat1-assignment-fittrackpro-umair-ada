@@ -46,13 +46,15 @@ WHERE member_id = 3 AND schedule_id = 7;
 SELECT
     cs.class_id,
     c.name AS class_name,
-    c.capacity - COUNT(CASE WHEN ca.attendance_status = 'Registered' THEN 1 END) AS registration_count
+    COUNT(CASE WHEN ca.attendance_status = 'Registered' THEN 1 END) AS registration_count
 FROM class_schedule cs
 LEFT JOIN classes c
 ON cs.class_id = c.class_id
 LEFT JOIN class_attendance ca
 ON cs.schedule_id = ca.schedule_id
-GROUP BY cs.class_id;
+GROUP BY cs.class_id
+ORDER BY registration_count DESC
+LIMIT 1;
 
 -- 4.6 
 SELECT ROUND(AVG(classes_attended_or_registered), 2) AS avg_classes_per_member
