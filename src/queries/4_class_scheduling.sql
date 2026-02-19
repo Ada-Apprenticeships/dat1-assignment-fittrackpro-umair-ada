@@ -15,7 +15,7 @@ ON cs.staff_id = s.staff_id;
 -- 4.2 
 SELECT
     cs.class_id,
-    c.name AS class_name,
+    c.name AS name,
     cs.start_time,
     cs.end_time,
     c.capacity - COUNT(ca.attendance_status) AS available_spots
