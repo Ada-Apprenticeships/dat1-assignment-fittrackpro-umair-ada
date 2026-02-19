@@ -7,7 +7,7 @@ SELECT
     mem.first_name,
     mem.last_name,
     mbs.type AS membership_type,
-    mbs.start_date AS join_date
+    mem.join_date
 FROM memberships mbs
 LEFT JOIN members mem
 ON mbs.member_id = mem.member_id
