@@ -3,7 +3,7 @@
 
 -- 2.1 
 INSERT INTO payments 
-VALUES (NULL, 11, 50, datetime('now'), 'Credit Card', 'Monthly membership fee');
+VALUES (NULL, 11, 50.00, datetime('now'), 'Credit Card', 'Monthly membership fee');
 
 -- 2.2 
 SELECT 
