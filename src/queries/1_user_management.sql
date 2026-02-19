@@ -10,7 +10,7 @@ SET phone_number = '07000 100005', email = 'emily.jones.updated@email.com'
 WHERE member_id = 5;
 
 -- 1.3
-SELECT COUNT(member_id)
+SELECT COUNT(member_id) AS total_members
 FROM members;
 
 -- 1.4
