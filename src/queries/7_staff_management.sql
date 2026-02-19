@@ -16,7 +16,9 @@ SELECT
     stf.first_name || ' ' || stf.last_name AS trainer_name,
     COUNT(pts.session_id) AS session_count
 FROM staff stf
-LEFT JOIN personal_training_sessions pts
+JOIN personal_training_sessions pts
 ON stf.staff_id = pts.staff_id 
-WHERE position = 'Trainer'
-GROUP BY stf.staff_id;
+WHERE stf.position = 'Trainer'
+AND pts.session_date BETWEEN '2025-01-20' AND DATE('2025-01-20', '+30 days')
+GROUP BY stf.staff_id
+HAVING session_count >= 1;
